@@ -44,8 +44,8 @@ jobs:
     
     - name: Build Dependencies Only
       run: |
-        cargo build --dependencies-only --verbose
-        cargo test --dependencies-only --verbose || true
+        cargo build --verbose
+        cargo test --verbose || true
 
   # Unit tests - fastest, run in parallel
   unit-tests:
