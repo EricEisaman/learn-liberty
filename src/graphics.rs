@@ -1,5 +1,5 @@
 //! Graphics engine module for Learn Liberty
-//! 
+//!
 //! This module provides a simplified graphics engine interface
 //! for the educational RPG application.
 

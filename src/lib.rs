@@ -1,23 +1,23 @@
 //! Learn Liberty - Educational RPG
-//! 
+//!
 //! A Rust-based educational graphics application inspired by the Handmaid's tale
 //! by Casey Moriarty. This is a simple 2D four-way scroller RPG designed for
 //! educational content delivery.
 
-pub mod window;
+pub mod education;
 pub mod graphics;
 pub mod state;
-pub mod education;
+pub mod window;
 
 // Re-export main types for easier access
-pub use window::WindowManager;
+pub use education::{CompletionCriteria, EducationalContent, ElementType, InteractiveElement};
 pub use graphics::GraphicsEngine;
 pub use state::AppState;
-pub use education::{EducationalContent, InteractiveElement, ElementType, CompletionCriteria};
+pub use window::WindowManager;
 
 pub mod tests {
     //! Test utilities and mock objects
-    //! 
+    //!
     //! This module provides mock implementations and test utilities
     //! for testing the Learn Liberty educational graphics application.
 
@@ -45,25 +45,25 @@ pub mod tests {
     impl MockWindow {
         pub fn new(title: &str, width: u32, height: u32) -> (Self, mpsc::Sender<MockEvent>) {
             let (tx, rx) = mpsc::channel();
-            
+
             let window = Self {
                 title: title.to_string(),
                 width,
                 height,
                 events: rx,
             };
-            
+
             (window, tx)
         }
-        
+
         pub fn get_title(&self) -> &str {
             &self.title
         }
-        
+
         pub fn get_size(&self) -> (u32, u32) {
             (self.width, self.height)
         }
-        
+
         pub fn try_receive_event(&self) -> Option<MockEvent> {
             self.events.try_recv().ok()
         }
@@ -86,26 +86,26 @@ pub mod tests {
                 render_calls: 0,
             }
         }
-        
+
         pub fn render(&mut self) -> Result<(), String> {
             self.render_calls += 1;
             self.frame_count += 1;
-            
+
             // Simulate some rendering work
             std::thread::sleep(Duration::from_millis(1));
-            
+
             Ok(())
         }
-        
+
         pub fn resize(&mut self, width: u32, height: u32) {
             self.width = width;
             self.height = height;
         }
-        
+
         pub fn get_frame_count(&self) -> u32 {
             self.frame_count
         }
-        
+
         pub fn get_render_calls(&self) -> u32 {
             self.render_calls
         }
@@ -119,7 +119,7 @@ pub mod tests {
         pub fn create_test_app_state() -> AppState {
             AppState::default()
         }
-        
+
         /// Create a test educational content
         pub fn create_test_lesson() -> EducationalContent {
             EducationalContent::new(
@@ -128,18 +128,20 @@ pub mod tests {
                 "This is a test lesson for educational content".to_string(),
             )
         }
-        
+
         /// Create multiple test lessons
         pub fn create_test_lessons(count: usize) -> Vec<EducationalContent> {
             (0..count)
-                .map(|i| EducationalContent::new(
-                    format!("test_lesson_{}", i + 1),
-                    format!("Test Lesson {}", i + 1),
-                    format!("This is test lesson number {}", i + 1),
-                ))
+                .map(|i| {
+                    EducationalContent::new(
+                        format!("test_lesson_{}", i + 1),
+                        format!("Test Lesson {}", i + 1),
+                        format!("This is test lesson number {}", i + 1),
+                    )
+                })
                 .collect()
         }
-        
+
         /// Simulate frame updates for testing
         pub fn simulate_frame_updates(state: &mut AppState, frames: u32, delta_time: f64) {
             for _ in 0..frames {
@@ -167,7 +169,7 @@ pub mod tests {
                 measurements: Vec::new(),
             }
         }
-        
+
         pub fn measure<F>(&mut self, f: F) -> Duration
         where
             F: FnOnce(),
@@ -178,7 +180,7 @@ pub mod tests {
             self.measurements.push(duration);
             duration
         }
-        
+
         pub fn get_average_time(&self) -> Duration {
             if self.measurements.is_empty() {
                 Duration::from_secs(0)
@@ -187,7 +189,7 @@ pub mod tests {
                 total / self.measurements.len() as u32
             }
         }
-        
+
         pub fn get_total_time(&self) -> Duration {
             self.start_time.elapsed()
         }

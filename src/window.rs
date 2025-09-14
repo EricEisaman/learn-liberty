@@ -1,5 +1,5 @@
 //! Window management module for Learn Liberty
-//! 
+//!
 //! This module provides window management interface
 //! for the educational RPG application.
 
@@ -31,17 +31,18 @@ impl WindowManager {
     where
         F: FnMut(&winit::window::Window) + 'static,
     {
-        let _ = self.event_loop.run(move |event, elwt| {
-            match event {
-                Event::WindowEvent { event: WindowEvent::CloseRequested, .. } => {
-                    elwt.exit();
-                }
-                Event::AboutToWait => {
-                    update(&self.window);
-                    self.window.request_redraw();
-                }
-                _ => (),
+        let _ = self.event_loop.run(move |event, elwt| match event {
+            Event::WindowEvent {
+                event: WindowEvent::CloseRequested,
+                ..
+            } => {
+                elwt.exit();
             }
+            Event::AboutToWait => {
+                update(&self.window);
+                self.window.request_redraw();
+            }
+            _ => (),
         });
     }
 

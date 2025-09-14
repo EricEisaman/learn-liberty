@@ -14,10 +14,7 @@ fn bench_app_state_advance_lesson(c: &mut Criterion) {
     c.bench_function("app_state_advance_lesson", |b| {
         let mut state = AppState::default();
         b.iter(|| {
-            state.advance_lesson(
-                black_box("test_lesson".to_string()),
-                black_box(0.5),
-            );
+            state.advance_lesson(black_box("test_lesson".to_string()), black_box(0.5));
         })
     });
 }

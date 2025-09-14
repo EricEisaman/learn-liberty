@@ -38,7 +38,7 @@ mod tests {
     #[test]
     fn test_app_state_default() {
         let state = AppState::default();
-        
+
         assert_eq!(state.frame_count, 0);
         assert_eq!(state.time, 0.0);
         assert_eq!(state.lesson_progress, 0.0);
@@ -50,9 +50,9 @@ mod tests {
         let mut state = AppState::default();
         let initial_frame_count = state.frame_count;
         let initial_time = state.time;
-        
+
         state.update(0.016); // Update with 16ms (60 FPS)
-        
+
         assert_eq!(state.frame_count, initial_frame_count + 1);
         assert_eq!(state.time, initial_time + 0.016);
     }
@@ -62,9 +62,9 @@ mod tests {
         let mut state = AppState::default();
         let lesson_id = "lesson_1".to_string();
         let progress = 0.5;
-        
+
         state.advance_lesson(lesson_id.clone(), progress);
-        
+
         assert_eq!(state.current_lesson_id, lesson_id);
         assert_eq!(state.lesson_progress, progress);
     }
@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn test_app_state_multiple_updates() {
         let mut state = AppState::default();
-        
+
         for i in 1..=10 {
             state.update(0.016);
             assert_eq!(state.frame_count, i);

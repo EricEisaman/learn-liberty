@@ -33,12 +33,7 @@ fn bench_graphics_multiple_renders(c: &mut Criterion) {
 fn bench_graphics_rapid_resize(c: &mut Criterion) {
     c.bench_function("graphics_rapid_resize", |b| {
         let mut engine = MockGraphicsEngine::new(800, 600);
-        let sizes = vec![
-            (1024, 768),
-            (1920, 1080),
-            (800, 600),
-            (1280, 720),
-        ];
+        let sizes = vec![(1024, 768), (1920, 1080), (800, 600), (1280, 720)];
         b.iter(|| {
             for (width, height) in &sizes {
                 engine.resize(black_box(*width), black_box(*height));
