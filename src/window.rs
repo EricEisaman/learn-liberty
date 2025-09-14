@@ -33,10 +33,9 @@ impl WindowManager {
     {
         let _ = self.event_loop.run(move |event, elwt| {
             match event {
-                Event::WindowEvent { event, .. } => match event {
-                    WindowEvent::CloseRequested => elwt.exit(),
-                    _ => (),
-                },
+                Event::WindowEvent { event: WindowEvent::CloseRequested, .. } => {
+                    elwt.exit();
+                }
                 Event::AboutToWait => {
                     update(&self.window);
                     self.window.request_redraw();
