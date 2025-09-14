@@ -3,6 +3,7 @@
 //! This module provides a simplified window management interface
 //! for the educational RPG application.
 
+#[allow(dead_code)]
 pub struct WindowManager {
     pub title: String,
     pub width: u32,
@@ -29,6 +30,7 @@ impl WindowManager {
         }
     }
 
+    #[allow(dead_code)]
     pub fn window(&self) -> &Self {
         self
     }

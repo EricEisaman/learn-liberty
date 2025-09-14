@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct AppState {
     pub frame_count: u32,
     pub time: f64,
@@ -23,6 +24,7 @@ impl AppState {
         self.time += delta_time;
     }
 
+    #[allow(dead_code)]
     pub fn advance_lesson(&mut self, lesson_id: String, progress: f32) {
         self.current_lesson_id = lesson_id;
         self.lesson_progress = progress;

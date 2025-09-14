@@ -33,6 +33,7 @@ pub struct CompletionCriteria {
     pub quiz_score_threshold: Option<f32>,
 }
 
+#[allow(dead_code)]
 impl EducationalContent {
     pub fn new(id: String, title: String, description: String) -> Self {
         Self {

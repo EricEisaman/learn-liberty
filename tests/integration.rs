@@ -64,7 +64,7 @@ fn test_window_graphics_integration() {
 fn test_application_loop_simulation() {
     let mut state = AppState::default();
     let mut graphics = MockGraphicsEngine::new(1024, 768);
-    let (window, _event_sender) = MockWindow::new("Learn Liberty", 1024, 768);
+    let (_window, _event_sender) = MockWindow::new("Learn Liberty", 1024, 768);
     
     // Simulate 60 frames (1 second at 60 FPS)
     let frame_time = 1.0 / 60.0; // ~16.67ms

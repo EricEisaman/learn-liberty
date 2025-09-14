@@ -130,44 +130,7 @@ impl TestUtils {
     }
 }
 
-/// Performance testing utilities
-pub struct PerformanceTest {
-    pub start_time: std::time::Instant,
-    pub measurements: Vec<Duration>,
-}
-
-impl PerformanceTest {
-    pub fn new() -> Self {
-        Self {
-            start_time: std::time::Instant::now(),
-            measurements: Vec::new(),
-        }
-    }
-    
-    pub fn measure<F>(&mut self, f: F) -> Duration
-    where
-        F: FnOnce(),
-    {
-        let start = std::time::Instant::now();
-        f();
-        let duration = start.elapsed();
-        self.measurements.push(duration);
-        duration
-    }
-    
-    pub fn get_average_time(&self) -> Duration {
-        if self.measurements.is_empty() {
-            Duration::from_secs(0)
-        } else {
-            let total: Duration = self.measurements.iter().sum();
-            total / self.measurements.len() as u32
-        }
-    }
-    
-    pub fn get_total_time(&self) -> Duration {
-        self.start_time.elapsed()
-    }
-}
+// PerformanceTest is now defined in src/lib.rs
 
 #[cfg(test)]
 mod tests {
@@ -221,7 +184,7 @@ mod tests {
 
     #[test]
     fn test_performance_test() {
-        let mut perf_test = PerformanceTest::new();
+        let mut perf_test = learn_liberty_app::tests::PerformanceTest::new();
         
         let duration = perf_test.measure(|| {
             std::thread::sleep(Duration::from_millis(10));

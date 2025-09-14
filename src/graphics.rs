@@ -3,6 +3,7 @@
 //! This module provides a simplified graphics engine interface
 //! for the educational RPG application.
 
+#[allow(dead_code)]
 pub struct GraphicsEngine {
     pub width: u32,
     pub height: u32,
@@ -19,6 +20,7 @@ impl GraphicsEngine {
         })
     }
 
+    #[allow(dead_code)]
     pub fn resize(&mut self, width: u32, height: u32) {
         self.width = width;
         self.height = height;

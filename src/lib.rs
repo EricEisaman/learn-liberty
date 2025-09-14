@@ -154,6 +154,12 @@ pub mod tests {
         pub measurements: Vec<Duration>,
     }
 
+    impl Default for PerformanceTest {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl PerformanceTest {
         pub fn new() -> Self {
             Self {
