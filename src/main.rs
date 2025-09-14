@@ -13,7 +13,8 @@ async fn main() -> anyhow::Result<()> {
     env_logger::init();
     
     let window_manager = WindowManager::new("Learn Liberty - Educational RPG");
-    let mut graphics_engine = GraphicsEngine::new(&window_manager).await?;
+    let window = window_manager.window();
+    let mut graphics_engine = GraphicsEngine::new(&window).await?;
     let mut app_state = AppState::default();
     
     let mut last_time = Instant::now();

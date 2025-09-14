@@ -1,37 +1,52 @@
 //! Window management module for Learn Liberty
 //! 
-//! This module provides a simplified window management interface
+//! This module provides window management interface
 //! for the educational RPG application.
 
-#[allow(dead_code)]
+use winit::{
+    event::{Event, WindowEvent},
+    event_loop::EventLoop,
+    window::WindowBuilder,
+};
+
 pub struct WindowManager {
-    pub title: String,
-    pub width: u32,
-    pub height: u32,
+    window: winit::window::Window,
+    event_loop: EventLoop<()>,
 }
 
 impl WindowManager {
     pub fn new(title: &str) -> Self {
-        Self {
-            title: title.to_string(),
-            width: 800,
-            height: 600,
-        }
+        let event_loop = EventLoop::new().unwrap();
+        let window = WindowBuilder::new()
+            .with_title(title)
+            .with_inner_size(winit::dpi::LogicalSize::new(800, 600))
+            .with_resizable(true)
+            .build(&event_loop)
+            .unwrap();
+
+        Self { window, event_loop }
     }
 
     pub fn run<F>(self, mut update: F)
     where
-        F: FnMut(&Self) + 'static,
+        F: FnMut(&winit::window::Window) + 'static,
     {
-        // Simplified implementation for testing
-        for _ in 0..60 { // Simulate 60 frames
-            update(&self);
-            std::thread::sleep(std::time::Duration::from_millis(16)); // ~60 FPS
-        }
+        let _ = self.event_loop.run(move |event, elwt| {
+            match event {
+                Event::WindowEvent { event, .. } => match event {
+                    WindowEvent::CloseRequested => elwt.exit(),
+                    _ => (),
+                },
+                Event::AboutToWait => {
+                    update(&self.window);
+                    self.window.request_redraw();
+                }
+                _ => (),
+            }
+        });
     }
 
-    #[allow(dead_code)]
-    pub fn window(&self) -> &Self {
-        self
+    pub fn window(&self) -> &winit::window::Window {
+        &self.window
     }
 }

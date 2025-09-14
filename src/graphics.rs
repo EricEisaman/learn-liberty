@@ -11,11 +11,12 @@ pub struct GraphicsEngine {
 }
 
 impl GraphicsEngine {
-    pub async fn new(_window: &crate::window::WindowManager) -> anyhow::Result<Self> {
-        // Simplified implementation for testing
+    pub async fn new(window: &winit::window::Window) -> anyhow::Result<Self> {
+        // Get window size
+        let size = window.inner_size();
         Ok(Self {
-            width: 800,
-            height: 600,
+            width: size.width,
+            height: size.height,
             frame_count: 0,
         })
     }
