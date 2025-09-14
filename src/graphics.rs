@@ -1,0 +1,33 @@
+//! Graphics engine module for Learn Liberty
+//! 
+//! This module provides a simplified graphics engine interface
+//! for the educational RPG application.
+
+pub struct GraphicsEngine {
+    pub width: u32,
+    pub height: u32,
+    pub frame_count: u32,
+}
+
+impl GraphicsEngine {
+    pub async fn new(_window: &crate::window::WindowManager) -> anyhow::Result<Self> {
+        // Simplified implementation for testing
+        Ok(Self {
+            width: 800,
+            height: 600,
+            frame_count: 0,
+        })
+    }
+
+    pub fn resize(&mut self, width: u32, height: u32) {
+        self.width = width;
+        self.height = height;
+    }
+
+    pub fn render(&mut self) -> anyhow::Result<()> {
+        self.frame_count += 1;
+        // Simulate rendering work
+        std::thread::sleep(std::time::Duration::from_millis(1));
+        Ok(())
+    }
+}

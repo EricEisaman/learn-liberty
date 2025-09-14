@@ -1,0 +1,19 @@
+[window]
+title = "Learn Liberty - Educational RPG"
+width = 1024
+height = 768
+resizable = true
+fullscreen = false
+
+[graphics]
+vsync = true
+antialiasing = true
+render_scale = 1.0
+
+[game]
+fps_limit = 60
+debug_mode = false
+
+[education]
+current_lesson = "intro"
+progress_save_interval = 30
